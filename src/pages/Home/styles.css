@@ -1,0 +1,101 @@
+*{
+    color: #999999;
+}
+.conteudo{
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+.background{
+    width: 60vh;
+    position: absolute;
+    left: 0;
+}
+.container{
+    width: 60%;
+    margin-right: 90px;
+    margin-top: 90px;
+    gap: 40px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.buscar{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+button{
+
+    width: 15%;
+    padding: 10px;
+    
+    font-size: 18px;
+    
+    border-width: 1px;
+    border-radius: 30px;
+    border-color: #999999;
+    
+    background-color: #2D333B;
+
+}
+
+input{
+    width: 85%;
+    min-width: 250px;
+    
+    margin-right: 12px;
+    padding: 10px;
+
+    font-size: 18px;
+    
+    border-width: 1px;
+    border-radius: 30px;
+    border-color: #999999;
+    
+    background: transparent;
+    
+}
+
+.perfil{
+    display: flex;
+    flex-direction: row;
+}
+
+.usuario{
+    width: 200px;
+    height: 200px;
+    margin-right: 40px;
+
+    border-radius: 1000px;
+    border: 2px solid #E5E5E5 ;
+}
+
+.info{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.repositorios{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+}
+
+.repositorios h1{
+    color: #fff;
+    font-family:  sans-serif;
+    font-weight: 700;
+    font-size: 32px; 
+    line-height: 100%;
+    letter-spacing: 0%;
+}
