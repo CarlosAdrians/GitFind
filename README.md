@@ -1,4 +1,4 @@
-**# 🔎 GitFind
+## 🔎 GitFind
 
 Aplicação web desenvolvida com **React** para buscar perfis e repositórios do GitHub de forma simples e intuitiva.
 
@@ -32,12 +32,6 @@ Tudo isso em uma interface moderna e responsiva.
 * 👤 Exibir informações do perfil
 * 📁 Listar repositórios do usuário
 * 🎨 Interface limpa e amigável
-
----
-
-## 🖥️ Preview
-
-Interface do sistema:
 
 ---
 
