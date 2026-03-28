@@ -9,22 +9,53 @@ function App() {
   const [user, setUser] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
   const [repos, setRepos] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   
 
   const handleGetData = async () => {
-    const userData = await fetch(`https://api.github.com/users/${user}`);
-    const newUser = await userData.json();
+    if(!user){
+      setError("Usuario nao encontrado!");
+      return;
+    }
 
-    if (newUser.name){
+    setError(null);
+    setCurrentUser(null);
+    setRepos(null);
+    setLoading(true);
+    
+    try {
+      const userData = await fetch(`https://api.github.com/users/${user}`);
+      
+      if (userData.status === 404) {
+        setError("Usuario não existe")
+      }
+
+      const newUser = await userData.json();
+
+      if (!newUser.name) {
+        setError("Usuario não encontrado")
+        
+      }
+
       const {avatar_url, name, login, bio} = newUser;
       setCurrentUser({avatar_url, name, login, bio});
-      
+        
       const reposData = await fetch(`https://api.github.com/users/${user}/repos`);
       const newRepos = await reposData.json();
 
-      if(newRepos.length){
-        setRepos(newRepos);
-      }
+      if (Array.isArray(newRepos)){
+        setRepos(newRepos)
+      }else{
+        setError("Erro ao carregar repositórios")
+      } 
+
+
+    } catch (err) {
+      setError("Erro de conexão com a API");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -46,6 +77,19 @@ function App() {
             />
             <button onClick={handleGetData}>Buscar</button>
           </div>
+
+          {error && (
+            <p>
+              {error}
+            </p>
+          )}
+
+          {loading && (
+            <p>Carregando...</p>
+          )}
+
+
+
           {currentUser?.name ? (
             
             <>
