@@ -2,12 +2,12 @@ header{
     background-color: #2D333B;
     width: 100%;
     height: 56px;
-    padding-left: 10px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
 h1{
+    padding-left: 20px;
     color: #fff;
     font-family:  sans-serif;
     font-weight: 700;
