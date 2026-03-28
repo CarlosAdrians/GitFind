@@ -83,6 +83,9 @@ input{
     gap: 40px;
 }
 
+.nome h2{
+    font-size: 30px;
+}
 .repositorios{
     width: 100%;
     display: flex;

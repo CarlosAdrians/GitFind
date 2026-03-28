@@ -1,9 +1,33 @@
+import { useState } from "react";
 import { Header } from "../../components/Header";
 import { ItemList } from "../../components/ItemList";
 import background from "../../assets/background.png";
+
 import "./styles.css";
 
 function App() {
+  const [user, setUser] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
+  const [repos, setRepos] = useState(null);
+  
+
+  const handleGetData = async () => {
+    const userData = await fetch(`https://api.github.com/users/${user}`);
+    const newUser = await userData.json();
+
+    if (newUser.name){
+      const {avatar_url, name, login, bio} = newUser;
+      setCurrentUser({avatar_url, name, login, bio});
+      
+      const reposData = await fetch(`https://api.github.com/users/${user}/repos`);
+      const newRepos = await reposData.json();
+
+      if(newRepos.length){
+        setRepos(newRepos);
+      }
+    }
+  }
+
   return (
     <div className="App">
       <Header />
@@ -14,47 +38,52 @@ function App() {
         <div className="container">
           
           <div className="buscar">
-            <input name="usuario" placeholder="@username" />
-            <button>Buscar</button>
+            <input 
+              name="usuario" 
+              value = {user} 
+              onChange={event => setUser(event.target.value)} 
+              placeholder="@username" 
+            />
+            <button onClick={handleGetData}>Buscar</button>
           </div>
-          
-          <div className="perfil">
-            <img src="https://avatars.githubusercontent.com/u/118210481?v=4" alt="Profile" className="usuario" />
+          {currentUser?.name ? (
             
-            <div className="info">
-              <div className="nome">
-                <h2>Carlos Adrians</h2>
-                <p>@CarlosAdrians</p>
-              </div>
+            <>
+            <div className="perfil">
+              <img src= {currentUser.avatar_url} alt="Profile" className="usuario" />
               
-              <div className="bio">
-                <p>Desenvolvedor Full Stack | JavaScript, TypeScript, React, Node.js.</p>
+              <div className="info">
+                <div className="nome">
+                  <h2>{currentUser.name}</h2>
+                  <p>@{currentUser.login}</p>
+                </div>
+                
+                <div className="bio">
+                  <p>{currentUser.bio}</p>
+                </div>
               </div>
             </div>
-          </div>
-
-          <hr />
-
-          <div className="repositorios">
             
-            <h1>Repositórios</h1>
-            
-            <ItemList 
-              title="teste1"
-              description="kadiaoadadadada"  
-            />
+            <hr />
+            </>
+          ): null}
 
-            <ItemList 
-              title="teste1"
-              description="kadiaoadadadada"  
-            />
 
-            <ItemList 
-              title="teste1"
-              description="kadiaoadadadada"  
-            />
-            
-          </div>
+          {repos?.length ? (
+
+            <div className="repositorios">
+              
+              <h1>Repositórios</h1>
+              {repos.map(repo => (
+                
+                <ItemList 
+                  title= {repo.name}
+                  description= {repo.description}
+                />
+                
+              ))}
+            </div>
+          ): null}
 
         </div>
       </div>
